@@ -3,7 +3,7 @@ export default {
   schema: "./src/utils/schema.jsx",
   out: "./drizzle",
   dbCredentials: {
-    url: process.env.VITE_POSTGRE_CONNECTION_STRING,
-    connectionString: process.env.VITE_POSTGRE_CONNECTION_STRING,
+    url: import.meta.env.VITE_POSTGRE_CONNECTION_STRING,
+    connectionString: import.meta.env.VITE_POSTGRE_CONNECTION_STRING,
   },
 };

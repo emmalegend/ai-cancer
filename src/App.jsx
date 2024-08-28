@@ -6,9 +6,11 @@ import MedicalRecords from "./pages/records/index";
 // import ScreeningSchedule from "./pages/ScreeningSchedule";
 import SingleRecordDetails from "./pages/records/single-record-details";
 import { useStateContext } from "./context";
+import { usePrivy } from "@privy-io/react-auth";
 
 const App = () => {
-  const { user, authenticated, ready, login, currentUser } = useStateContext();
+  const { currentUser } = useStateContext();
+  const { user, authenticated, ready, login } = usePrivy();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const App = () => {
     } else if (user && !currentUser) {
       navigate("/onboarding");
     }
-  }, [user, authenticated, ready, login, currentUser, navigate]);
+  }, [ready, currentUser, navigate, user]);
 
   return (
     <div className="sm:-8 relative flex min-h-screen flex-row bg-[#13131a] p-4">

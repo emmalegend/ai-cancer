@@ -56,7 +56,6 @@ const Index = () => {
         }
       }
     } catch (e) {
-      console.log(e);
       handleCloseModal();
     }
   };

@@ -11,7 +11,6 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const { user } = usePrivy();
 
-  console.log(user);
   const handleOnboarding = async (e) => {
     e.preventDefault();
     const userData = {
@@ -24,10 +23,9 @@ const Onboarding = () => {
       createdBy: user.email.address,
     };
 
-    console.log(userData);
     const newUser = await createUser(userData);
     if (newUser) {
-      navigate("/profile");
+      navigate("/");
     }
   };
 
