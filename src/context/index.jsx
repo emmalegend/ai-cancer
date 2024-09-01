@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useMemo } from "react";
 import { db } from "../utils/dbConfig"; // Adjust the path to your dbConfig
 import { Users, Records } from "../utils/schema"; // Adjust the path to your schema definitions
 import { eq } from "drizzle-orm";
@@ -13,17 +13,17 @@ export const StateContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   // Function to fetch all users
-  const fetchUsers = useCallback(async () => {
+  const fetchUsers = async () => {
     try {
       const result = await db.select().from(Users).execute();
       setUsers(result);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  }, []);
+  };
 
   // Function to fetch user details by email
-  const fetchUserByEmail = useCallback(async (email) => {
+  const fetchUserByEmail = async (email) => {
     try {
       const result = await db
         .select()
@@ -36,10 +36,10 @@ export const StateContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching user by email:", error);
     }
-  }, []);
+  };
 
   // Function to create a new user
-  const createUser = useCallback(async (userData) => {
+  const createUser = async (userData) => {
     try {
       const newUser = await db
         .insert(Users)
@@ -52,10 +52,10 @@ export const StateContextProvider = ({ children }) => {
       console.error("Error creating user:", error);
       return null;
     }
-  }, []);
+  };
 
   // Function to fetch all records for a specific user
-  const fetchUserRecords = useCallback(async (userEmail) => {
+  const fetchUserRecords = async (userEmail) => {
     try {
       const result = await db
         .select()
@@ -66,10 +66,10 @@ export const StateContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching user records:", error);
     }
-  }, []);
+  };
 
   // Function to create a new record
-  const createRecord = useCallback(async (recordData) => {
+  const createRecord = async (recordData) => {
     try {
       const newRecord = await db
         .insert(Records)
@@ -82,9 +82,9 @@ export const StateContextProvider = ({ children }) => {
       console.error("Error creating record:", error);
       return null;
     }
-  }, []);
+  };
 
-  const updateRecord = useCallback(async (recordData) => {
+  const updateRecord = async (recordData) => {
     try {
       const { documentID, ...dataToUpdate } = recordData;
       console.log(documentID, dataToUpdate);
@@ -97,22 +97,26 @@ export const StateContextProvider = ({ children }) => {
       console.error("Error updating record:", error);
       return null;
     }
-  }, []);
+  };
+
+  // Memoize the value to avoid unnecessary re-renders
+  const contextValue = useMemo(
+    () => ({
+      users,
+      records,
+      fetchUsers,
+      fetchUserByEmail,
+      createUser,
+      fetchUserRecords,
+      createRecord,
+      currentUser,
+      updateRecord,
+    }),
+    [users, records, currentUser],
+  );
 
   return (
-    <StateContext.Provider
-      value={{
-        users,
-        records,
-        fetchUsers,
-        fetchUserByEmail,
-        createUser,
-        fetchUserRecords,
-        createRecord,
-        currentUser,
-        updateRecord,
-      }}
-    >
+    <StateContext.Provider value={contextValue}>
       {children}
     </StateContext.Provider>
   );

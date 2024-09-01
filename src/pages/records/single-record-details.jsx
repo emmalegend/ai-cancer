@@ -137,14 +137,10 @@ function SingleRecordDetails() {
     const response = await result.response;
     const text = response.text();
     const parsedResponse = JSON.parse(text);
-
-    console.log(text);
-    console.log(parsedResponse);
     const updatedRecord = await updateRecord({
       documentID: state.id,
       kanbanRecords: text,
     });
-    console.log(updatedRecord);
     navigate("/screening-schedules", { state: parsedResponse });
     setIsProcessing(false);
   };

@@ -82,50 +82,42 @@ const DisplayInfo = () => {
       subtitle: "View",
       value: metrics.pendingScreenings,
       icon: IconHourglassHigh,
-      onClick: () => navigate("/appointments/pending"),
     },
     {
       title: "Treatment Progress Update",
       subtitle: "View",
       value: `${metrics.completedScreenings} of ${metrics.totalScreenings}`,
       icon: IconCircleDashedCheck,
-
-      onClick: () => navigate("/treatment/progress"),
     },
     {
       title: "Total Folders",
       subtitle: "View",
       value: metrics.totalFolders,
       icon: IconFolder,
-      onClick: () => navigate("/folders"),
     },
     {
       title: "Total Screenings",
       subtitle: "View",
       value: metrics.totalScreenings,
       icon: IconUserScan,
-      onClick: () => navigate("/screenings"),
     },
     {
       title: "Completed Screenings",
       subtitle: "View",
       value: metrics.completedScreenings,
       icon: IconCircleDashedCheck,
-      onClick: () => navigate("/screenings/completed"),
     },
     {
       title: "Pending Screenings",
       subtitle: "View",
       value: metrics.pendingScreenings,
       icon: IconHourglassHigh,
-      onClick: () => navigate("/screenings/pending"),
     },
     {
       title: "Overdue Screenings",
       subtitle: "View",
       value: metrics.overdueScreenings,
       icon: IconAlertCircle,
-      onClick: () => navigate("/screenings/overdue"),
     },
   ];
 

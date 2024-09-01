@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Sidebar, Navbar } from "./components";
 import { Home, Profile, Onboarding } from "./pages";
 import MedicalRecords from "./pages/records/index";
-// import ScreeningSchedule from "./pages/ScreeningSchedule";
+import ScreeningSchedule from "./pages/ScreeningSchedule";
 import SingleRecordDetails from "./pages/records/single-record-details";
 import { useStateContext } from "./context";
 import { usePrivy } from "@privy-io/react-auth";
@@ -12,7 +12,7 @@ const App = () => {
   const { currentUser } = useStateContext();
   const { user, authenticated, ready, login } = usePrivy();
   const navigate = useNavigate();
-
+  console.log(user, authenticated, currentUser, ready, login);
   useEffect(() => {
     if (ready && !authenticated) {
       login();
@@ -39,7 +39,7 @@ const App = () => {
             path="/medical-records/:id"
             element={<SingleRecordDetails />}
           />
-          {/* <Route path="/screening-schedules" element={<ScreeningSchedule />} /> */}
+          <Route path="/screening-schedules" element={<ScreeningSchedule />} />
         </Routes>
       </div>
     </div>
